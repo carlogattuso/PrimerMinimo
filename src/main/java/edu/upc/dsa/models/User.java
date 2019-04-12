@@ -1,12 +1,13 @@
 package edu.upc.dsa.models;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class User {
     private String idUser;
     private String name;
     private String surname;
-    private LinkedList<Bike> bikes = new LinkedList<>();
+    private ArrayList<PlayList> playLists = new ArrayList<>();
 
     public User() {
     }
@@ -41,16 +42,16 @@ public class User {
         this.surname = surname;
     }
 
-    public LinkedList<Bike> getBikes() {
-        return bikes;
+    public ArrayList<PlayList> getPlayLists() {
+        return playLists;
     }
 
-    public void setBikes(LinkedList<Bike> bikes) {
-        this.bikes = bikes;
+    public void setPlayLists(ArrayList<PlayList> playLists) {
+        this.playLists = playLists;
     }
 
     @Override
     public String toString() {
-        return "User [id="+idUser+", name=" + name + ", surname=" + surname + ", bikes=" + bikes.size() +"]";
+        return "User [id="+idUser+", name=" + name + ", surname=" + surname + ", playlists=" + playLists.size() +"]";
     }
 }
