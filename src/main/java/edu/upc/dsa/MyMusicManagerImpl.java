@@ -53,15 +53,17 @@ public class MyMusicManagerImpl implements MyMusicManager{
     }
 
     @Override
-    public void addTitol(String idUser, String idPlayList, String idTitol, String titol, String artista, String album, double duracio) throws UserNotFoundException, PlayListNotFoundException {
+    public void addTitol(String idUser, String idPlayList, String idTitol, String titol, String artista, String album, double duracio) throws UserNotFoundException, PlayListNotFoundException, ArtistaNotFoundException {
         User u = findUser(idUser);
         PlayList p = findPlayList(idUser,idPlayList);
+        Artista a = findArtista(artista);
         Titol t = new Titol(idTitol,titol,artista,album,duracio);
         List<Titol> titols = p.getTitols();
         titols.add(t);
         logger.info("New Titol: "+t.toString());
         logger.info("Adding User: "+u.toString());
         logger.info("Adding Playlist: "+p.toString());
+        logger.info("Artista Found: "+a.toString());
         logger.info("Titols in playlist: "+titols.size());
     }
 
@@ -113,13 +115,13 @@ public class MyMusicManagerImpl implements MyMusicManager{
         throw new UserNotFoundException();
     }
 
-    public Artista findArtista(String idArtista) throws ArtistaNotFoundException {
+    public Artista findArtista(String artista) throws ArtistaNotFoundException {
         for(Artista a : this.artistas){
-            if(a.getIdArtista().equals(idArtista)){
+            if(a.getName().equals(artista)){
                 return a;
             }
         }
-        logger.warn("Station not found");
+        logger.warn("Artista not found");
         throw new ArtistaNotFoundException();
     }
 

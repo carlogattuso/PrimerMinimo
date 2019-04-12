@@ -52,8 +52,10 @@ public interface MyMusicManager {
      * @param duracio duration of the song
      * @throws UserNotFoundException  if the user does not exist
      * @throws PlayListNotFoundException if the playlist doesn't exist
+     * @throws UserNotFoundException  if the user does not exist
+     * @throws ArtistaNotFoundException if the artist doesn't exist
      */
-    public void addTitol(String idUser, String idPlayList, String idTitol, String titol, String artista, String album, double duracio) throws UserNotFoundException, PlayListNotFoundException;
+    public void addTitol(String idUser, String idPlayList, String idTitol, String titol, String artista, String album, double duracio) throws UserNotFoundException, PlayListNotFoundException, ArtistaNotFoundException;
 
 
     /**

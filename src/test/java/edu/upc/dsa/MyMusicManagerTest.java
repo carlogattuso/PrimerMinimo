@@ -66,7 +66,11 @@ public class MyMusicManagerTest {
     }
 
     @Test
-    public void testAddTitol() throws UserNotFoundException, PlayListNotFoundException {
+    public void testAddTitol() throws UserNotFoundException, PlayListNotFoundException, ArtistaNotFoundException {
+        this.mm.addArtista("artista5","David Bisbal");
+        this.mm.addArtista("artista6","Melendi");
+
+        Assert.assertEquals(6, this.mm.numArtistas());
 
         this.mm.addTitol("user1", "playlist3", "titol05", "Buleria","David Bisbal","Buleria",4.7);
         this.mm.addTitol("user1", "playlist3", "titol06", "Caminando por la vida","Melendi","Caminando por la vida",3);
@@ -89,6 +93,21 @@ public class MyMusicManagerTest {
     @Test(expected = UserNotFoundException.class)
     public void testAddPlayListAndUserNotFound() throws UserNotFoundException, FullPlayListException{
         this.mm.addPlayList("XXXX", "playlist4", "R&B");
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void testAddTitolAndUserNotFound() throws UserNotFoundException, ArtistaNotFoundException, PlayListNotFoundException{
+        this.mm.addTitol("userXX", "playlist3", "titol05", "Buleria","David Bisbal","Buleria",4.7);
+    }
+
+    @Test(expected = PlayListNotFoundException.class)
+    public void testAddTitolAndPlayListNotFound() throws UserNotFoundException, ArtistaNotFoundException, PlayListNotFoundException{
+        this.mm.addTitol("user1", "playlistXX", "titol05", "Buleria","David Bisbal","Buleria",4.7);
+    }
+
+    @Test(expected = ArtistaNotFoundException.class)
+    public void testAddTitolAndArtistaNotFound() throws UserNotFoundException, ArtistaNotFoundException, PlayListNotFoundException{
+        this.mm.addTitol("user1", "playlist3", "titol05", "Buleria","XXXXX","Buleria",4.7);
     }
 
     @Test

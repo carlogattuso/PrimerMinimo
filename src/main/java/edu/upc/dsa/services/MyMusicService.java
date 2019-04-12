@@ -46,9 +46,7 @@ public class MyMusicService {
     @ApiOperation(value = "create a new User", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response= UserTO.class),
-            @ApiResponse(code = 404, message = "User not found"),
-            @ApiResponse(code = 500, message = "Product not found"),
-            @ApiResponse(code = 501, message = "Queue full")
+            @ApiResponse(code = 500, message = "Validation Error")
     })
     @Path("/user")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -96,7 +94,8 @@ public class MyMusicService {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response= Titol.class),
             @ApiResponse(code = 404, message = "User not found"),
-            @ApiResponse(code = 405, message = "Playlist not found")
+            @ApiResponse(code = 405, message = "Playlist not found"),
+            @ApiResponse(code = 406, message = "Artista not found")
     })
     @Path("/titol/{idUser}/{idPlayList}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -107,7 +106,9 @@ public class MyMusicService {
         } catch(UserNotFoundException e1){
             return Response.status(404).build();
         } catch(PlayListNotFoundException e2){
-            return Response.status(500).build();
+            return Response.status(405).build();
+        } catch(ArtistaNotFoundException e3){
+            return Response.status(406).build();
         }
     }
 
