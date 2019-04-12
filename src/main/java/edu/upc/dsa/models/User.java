@@ -7,15 +7,16 @@ public class User {
     private String idUser;
     private String name;
     private String surname;
-    private ArrayList<PlayList> playLists = new ArrayList<>();
+    private ArrayList<PlayList> playLists;
 
     public User() {
     }
 
-    public User(String idUser, String name, String surname) {
+    public User(String idUser, String name, String surname, int maxPlayLists) {
         this.idUser = idUser;
         this.name = name;
         this.surname = surname;
+        playLists  = new ArrayList<>(maxPlayLists);
     }
 
     public String getIdUser() {
