@@ -25,9 +25,8 @@ public interface MyMusicManager {
      *
      * @param idArtista identifier of the artista
      * @param name name of the artista
-     * @param surname surname of the artista
      */
-    public void addArtista(String idArtista, String name, String surname);
+    public void addArtista(String idArtista, String name);
 
     /**
      * Add a new PlayList
@@ -61,7 +60,7 @@ public interface MyMusicManager {
      * Get the titols of a playlist
      *
      * @param idUser identifier of the user
-     * @param idPlaylist identifier of the playlist
+     * @param idPlayList identifier of the playlist
      * @return list of titols
      * @throws PlayListNotFoundException if the station doesn't exist
      */
@@ -83,9 +82,10 @@ public interface MyMusicManager {
      * get the number of stations
      *
      * @param idUser identifier of the user
+     * @throws UserNotFoundException if the user doesn't exist
      * @return the number of playlists of a user
      */
-    //public int numPlaylists(String idUser);
+     public int numPlaylists(String idUser) throws UserNotFoundException;
 
     /**
      * get the number of bikes in a station

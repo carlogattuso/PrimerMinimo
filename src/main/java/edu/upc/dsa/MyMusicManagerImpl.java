@@ -30,8 +30,8 @@ public class MyMusicManagerImpl implements MyMusicManager{
     }
 
     @Override
-    public void addArtista(String idArtista, String name, String surname) {
-        Artista a = new Artista(idArtista,name,surname);
+    public void addArtista(String idArtista, String name) {
+        Artista a = new Artista(idArtista,name);
         this.artistas.add(a);
         logger.info("New Artista: "+a.toString());
         logger.info("Artista Count: "+this.numArtistas());
@@ -52,7 +52,7 @@ public class MyMusicManagerImpl implements MyMusicManager{
     @Override
     public void addTitol(String idUser, String idPlayList, String idTitol, String titol, String artista, String album, double duracio) throws UserNotFoundException, PlayListNotFoundException {
         User u = findUser(idUser);
-        PlayList p = findPlayList(u,idPlayList);
+        PlayList p = findPlayList(idUser,idPlayList);
         Titol t = new Titol(idTitol,titol,artista,album,duracio);
         List<Titol> titols = p.getTitols();
         titols.add(t);
@@ -65,7 +65,7 @@ public class MyMusicManagerImpl implements MyMusicManager{
     @Override
     public List<Titol> titolsOfAPlaylist(String idUser, String idPlayList) throws UserNotFoundException, PlayListNotFoundException {
         User u = findUser(idUser);
-        PlayList p = findPlayList(u,idPlayList);
+        PlayList p = findPlayList(idUser,idPlayList);
         List<Titol> playListTitols = p.getTitols();
         return playListTitols;
     }
@@ -83,6 +83,12 @@ public class MyMusicManagerImpl implements MyMusicManager{
     @Override
     public int numArtistas() {
         return this.artistas.size();
+    }
+
+    @Override
+    public int numPlaylists(String idUser) throws UserNotFoundException{
+        User u = this.findUser(idUser);
+        return u.getPlayLists().size();
     }
 
     @Override
@@ -110,7 +116,8 @@ public class MyMusicManagerImpl implements MyMusicManager{
         throw new ArtistaNotFoundException();
     }
 
-    public PlayList findPlayList(User u, String idPlayList) throws PlayListNotFoundException{
+    public PlayList findPlayList(String idUser, String idPlayList) throws UserNotFoundException, PlayListNotFoundException{
+        User u = findUser(idUser);
         for(PlayList p : u.getPlayLists()){
             if(p.getId().equals(idPlayList)){
                 return p;
