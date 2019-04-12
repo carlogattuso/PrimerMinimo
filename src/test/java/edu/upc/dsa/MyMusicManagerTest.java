@@ -103,6 +103,16 @@ public class MyMusicManagerTest {
         Assert.assertEquals("Highway To Hell", titols.get(1).getTitol());
     }
 
+    @Test(expected = UserNotFoundException.class)
+    public void testTitolsByPlayListAndUserNotFound() throws UserNotFoundException, PlayListNotFoundException{
+        List<Titol> titols = this.mm.titolsOfAPlaylist("XXXX","playlist2");
+    }
+
+    @Test(expected = PlayListNotFoundException.class)
+    public void testTitolsByPlayListAndPlayListNotFound() throws UserNotFoundException, PlayListNotFoundException{
+        List<Titol> titols = this.mm.titolsOfAPlaylist("user1","playlistXXX");
+    }
+
     @Test
     public void testGetAtistas() throws Exception {
         List<Artista> artistas = this.mm.getArtistas();
