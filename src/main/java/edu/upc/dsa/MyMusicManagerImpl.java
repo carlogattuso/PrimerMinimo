@@ -42,7 +42,10 @@ public class MyMusicManagerImpl implements MyMusicManager{
         User u = findUser(idUser);
         PlayList p = new PlayList(idPlayList,name);
         List<PlayList> playLists = u.getPlayLists();
-        if(playLists.size()==P) throw new FullPlayListException();
+        if(playLists.size()==P){
+            logger.warn("Full playlists");
+            throw new FullPlayListException();
+        }
         u.getPlayLists().add(p);
         logger.info("New PlayList: "+p.toString());
         logger.info("Adding User: "+u.toString());
@@ -67,11 +70,15 @@ public class MyMusicManagerImpl implements MyMusicManager{
         User u = findUser(idUser);
         PlayList p = findPlayList(idUser,idPlayList);
         List<Titol> playListTitols = p.getTitols();
+        logger.info("Get titols: "+playListTitols.size());
+        logger.info("User: "+u.toString());
+        logger.info("Playlist: "+p.toString());
         return playListTitols;
     }
 
     @Override
     public List<Artista> getArtistas() {
+        logger.info("Get artistas: "+this.numArtistas());
         return this.artistas;
     }
 
@@ -123,6 +130,7 @@ public class MyMusicManagerImpl implements MyMusicManager{
                 return p;
             }
         }
+        logger.warn("PlayList not found");
         throw new PlayListNotFoundException();
     }
 }
